@@ -58,7 +58,7 @@ export default function StepAdvertiserDetails({
     }
 
     // ✅ Trigger parent submit function
-    onSubmitForReview();
+    onSubmitForReview?.();
   };
 
   return (
