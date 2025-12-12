@@ -1,19 +1,19 @@
-import { NextResponse } from "next/server";
-import prisma from "@/lib/prisma"; // adjust import path
+import { NextRequest, NextResponse } from "next/server";
+import prisma from "@/lib/prisma";
 import { writeFile } from "fs/promises";
 import path from "path";
 
 export async function POST(
-  req: Request,
-  { params }: { params: { reference: string } }
+  request: NextRequest,
+  context: { params: Promise<{ reference: string }> }
 ) {
   try {
-    console.log(req.headers.get("content-type"));
-    // ✅ Parse multipart form data (must come as FormData)
-    const formData = await req.formData();
-    const file = formData.get("file") as File;
+    // 👇 FIX: next.js 15 requires awaiting the params
+    const { reference } = await context.params;
+
+    const formData = await request.formData();
+    const file = formData.get("file") as File | null;
     const amount = formData.get("amount") as string | null;
-    const referenceNumber = params.reference;
 
     if (!file) {
       return NextResponse.json(
@@ -22,24 +22,26 @@ export async function POST(
       );
     }
 
-    // ✅ Save file locally
+    // Save uploaded file
     const bytes = await file.arrayBuffer();
     const buffer = Buffer.from(bytes);
+
     const uploadDir = path.join(process.cwd(), "public", "uploads");
     const filename = `${Date.now()}_${file.name}`;
     const filePath = path.join(uploadDir, filename);
+
     await writeFile(filePath, buffer);
 
-    // ✅ Update advertisement status
+    // Update advertisement status
     await prisma.advertisements.update({
-      where: { reference_number: referenceNumber },
+      where: { reference_number: reference },
       data: { status: "PaymentPending" },
     });
 
-    // ✅ Add record to payment_ads
+    // Create payment record
     const payment = await prisma.payment_ads.create({
       data: {
-        reference_number: referenceNumber,
+        reference_number: reference,
         file_path: `/uploads/${filename}`,
         original_filename: file.name,
         amount: amount ? parseFloat(amount) : null,
@@ -47,10 +49,10 @@ export async function POST(
     });
 
     return NextResponse.json({ success: true, payment });
-  } catch (err: any) {
+  } catch (err: unknown) {
     console.error("Error submitting payment:", err);
     return NextResponse.json(
-      { success: false, error: err.message },
+      { success: false, error: (err as Error).message },
       { status: 500 }
     );
   }
