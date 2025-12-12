@@ -23,7 +23,7 @@ export async function createSession(userId: string) {
 
 // ---------------- Get Session ----------------
 export async function getSession() {
-  // ✅ Await cookie store
+  // Await cookie store (Next.js App Router)
   const cookieStore = await nextCookies();
   const sessionId = cookieStore.get(SESSION_COOKIE_NAME)?.value;
 
@@ -34,9 +34,16 @@ export async function getSession() {
 
   const parsed = JSON.parse(data) as { userId: string; createdAt: string };
 
+  // Prisma fetch user and roles
   const user = await prisma.users.findUnique({
     where: { id: parsed.userId },
-    include: { userRoles: { include: { role: true } } },
+    include: {
+      user_roles: {
+        include: {
+          roles: true, // includes role name
+        },
+      },
+    },
   });
 
   if (!user) return null;
@@ -49,11 +56,18 @@ export async function requireAdmin() {
   const ses = await getSession();
   if (!ses?.user) throw new Error("UNAUTHORIZED");
 
-  const roles = ses.user.userRoles.map((r) => r.role.name);
+  const roles = ses.user.user_roles.map((r) => r.roles.name);
 
   if (!roles.includes("SUPER_ADMIN") && !roles.includes("ADMIN")) {
     throw new Error("FORBIDDEN");
   }
 
+  return ses;
+}
+
+// ---------------- Optional: Require Login ----------------
+export async function requireLogin() {
+  const ses = await getSession();
+  if (!ses?.user) throw new Error("UNAUTHORIZED");
   return ses;
 }
