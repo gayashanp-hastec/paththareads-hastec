@@ -6,7 +6,7 @@ import "react-phone-input-2/lib/style.css";
 import toast from "react-hot-toast";
 
 interface StepAdvertiserDetailsProps {
-  formData: unknown;
+  formData: any;
   updateFormData: (data: any) => void;
   onSubmitForReview?: () => void; //
 }
