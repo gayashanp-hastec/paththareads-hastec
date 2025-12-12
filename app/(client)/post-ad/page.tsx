@@ -132,31 +132,43 @@ export default function PostAdPage() {
     if (currentStep > 1) setCurrentStep((prev) => prev - 1);
   };
 
-  // ✅ Submit for Review
   const handleSubmitForReview = async () => {
+    // Step validation before submission
     if (!validateStep()) return;
 
+    // Runtime checks for mandatory fields
+    if (!formData.selectedNewspaper) {
+      toast.error("Please select a newspaper.");
+      return;
+    }
+
+    if (!formData.adType) {
+      toast.error("Please select an ad type.");
+      return;
+    }
+
+    // Prepare payload safely
     try {
       const payload = {
         advertiser: {
-          name: formData.advertiserName,
-          nic: formData.advertiserNIC,
-          phone: formData.advertiserPhone,
-          email: formData.advertiserEmail,
-          address: formData.advertiserAddress,
+          name: formData.advertiserName.trim(),
+          nic: formData.advertiserNIC.trim(),
+          phone: formData.advertiserPhone.trim(),
+          email: formData.advertiserEmail.trim(),
+          address: formData.advertiserAddress.trim(),
         },
         advertisement: {
-          newspaper_name: formData.selectedNewspaper.code,
-          ad_type: formData.adType,
-          classified_category: formData.classifiedCategory,
+          newspaper_name: formData.selectedNewspaper?.code || "", // safe
+          ad_type: formData.adType || "",
+          classified_category: formData.classifiedCategory || null,
           subcategory: formData.photoCategory || null,
-          publish_date: formData.publishDate,
-          advertisement_text: formData.adText,
-          background_color: formData.backgroundColor,
-          post_in_web: formData.combinedAd,
-          upload_image: formData.uploadedImage,
-          special_notes: formData.specialNotes,
-          price: formData.totalPrice,
+          publish_date: formData.publishDate || "",
+          advertisement_text: formData.adText || "",
+          background_color: formData.backgroundColor || false,
+          post_in_web: formData.combinedAd || false,
+          upload_image: formData.uploadedImage || null,
+          special_notes: formData.specialNotes || "",
+          price: formData.totalPrice || 0,
         },
       };
 
@@ -172,11 +184,12 @@ export default function PostAdPage() {
       }
 
       const result = await res.json();
-      setReferenceNumber(result.reference_number);
-      setTrackingLink(result.tracking_link);
+
+      setReferenceNumber(result.reference_number || "");
+      setTrackingLink(result.tracking_link || "");
       toast.success("Advertisement submitted for review!");
       setCurrentStep(4);
-    } catch (err) {
+    } catch (err: any) {
       console.error(err);
       toast.error("Server error while submitting.");
     }
