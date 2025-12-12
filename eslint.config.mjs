@@ -17,6 +17,7 @@ const eslintConfig = [
   {
     rules: {
       // Disable "Unexpected any" error
+      "prefer-const": "off",
       "@typescript-eslint/no-explicit-any": "off",
     },
     ignores: [
