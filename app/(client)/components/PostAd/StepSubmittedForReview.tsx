@@ -20,6 +20,9 @@ export default function StepSubmittedForReview({
       ? trackingLink.split("/").slice(1).join("/")
       : trackingLink;
 
+  console.log(cleanedLink);
+  console.log(trackingLink);
+
   return (
     <div className="text-center p-8 bg-gray-50 rounded-lg shadow-md">
       <h2 className="text-2xl font-semibold text-green-700 mb-4">
