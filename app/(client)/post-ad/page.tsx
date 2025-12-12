@@ -10,6 +10,38 @@ import StepSelectAdType from "../components/PostAd/StepSelectAdType";
 import StepAdvertiserDetails from "../components/PostAd/StepAdvertiserDetails";
 import StepSubmittedForReview from "../components/PostAd/StepSubmittedForReview";
 
+// ---------------- Types ----------------
+interface Newspaper {
+  code: string;
+  name: string;
+}
+
+interface FormData {
+  selectedNewspaper: Newspaper | null;
+  adType: string | null;
+  classifiedCategory: string | null;
+  publishDate: string;
+  adText: string;
+  backgroundColor: boolean;
+  combinedAd: boolean;
+  specialNotes: string;
+  deathCertificate: File | null;
+  photoCategory: string | null;
+  uploadedImage: File | null;
+  vehicleModel: string;
+  vehicleType: string;
+  vehicleYear: string;
+  totalPrice: number | null;
+
+  advertiserName: string;
+  advertiserAddress: string;
+  advertiserPostalAddress: string;
+  advertiserPhone: string;
+  advertiserNIC: string;
+  advertiserEmail: string;
+}
+
+// ---------------- Component ----------------
 export default function PostAdPage() {
   const steps = [
     "Select Newspaper",
@@ -18,10 +50,11 @@ export default function PostAdPage() {
     "On Review",
   ];
 
+  const [currentStep, setCurrentStep] = useState(1);
   const [referenceNumber, setReferenceNumber] = useState("");
   const [trackingLink, setTrackingLink] = useState("");
-  const [currentStep, setCurrentStep] = useState(1);
-  const [formData, setFormData] = useState({
+
+  const [formData, setFormData] = useState<FormData>({
     selectedNewspaper: null,
     adType: null,
     classifiedCategory: null,
@@ -46,7 +79,7 @@ export default function PostAdPage() {
     advertiserEmail: "",
   });
 
-  const updateFormData = (newData: any) => {
+  const updateFormData = (newData: Partial<FormData>) => {
     setFormData((prev) => ({ ...prev, ...newData }));
   };
 
@@ -54,6 +87,7 @@ export default function PostAdPage() {
     !!formData.selectedNewspaper
   );
 
+  // ---------------- Step Validation ----------------
   const validateStep = (): boolean => {
     switch (currentStep) {
       case 1:
@@ -71,7 +105,7 @@ export default function PostAdPage() {
           toast.error("Publish date is required.");
           return false;
         }
-        if (!formData.adText || formData.adText.trim().length === 0) {
+        if (!formData.adText.trim()) {
           toast.error("Advertisement text cannot be empty.");
           return false;
         }
@@ -113,7 +147,9 @@ export default function PostAdPage() {
           toast.error("Email address is required.");
           return false;
         }
-        if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.advertiserEmail)) {
+        if (
+          !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.advertiserEmail.trim())
+        ) {
           toast.error("Invalid email format.");
           return false;
         }
@@ -123,6 +159,7 @@ export default function PostAdPage() {
     }
   };
 
+  // ---------------- Step Navigation ----------------
   const nextStep = () => {
     if (!validateStep()) return;
     if (currentStep < 3) setCurrentStep((prev) => prev + 1);
@@ -132,22 +169,16 @@ export default function PostAdPage() {
     if (currentStep > 1) setCurrentStep((prev) => prev - 1);
   };
 
+  // ---------------- Submit For Review ----------------
   const handleSubmitForReview = async () => {
-    // Step validation before submission
     if (!validateStep()) return;
 
-    // Runtime checks for mandatory fields
+    // Runtime check for selectedNewspaper
     if (!formData.selectedNewspaper) {
       toast.error("Please select a newspaper.");
       return;
     }
 
-    if (!formData.adType) {
-      toast.error("Please select an ad type.");
-      return;
-    }
-
-    // Prepare payload safely
     try {
       const payload = {
         advertiser: {
@@ -158,16 +189,16 @@ export default function PostAdPage() {
           address: formData.advertiserAddress.trim(),
         },
         advertisement: {
-          newspaper_name: formData.selectedNewspaper?.code || "", // safe
+          newspaper_name: formData.selectedNewspaper.code,
           ad_type: formData.adType || "",
           classified_category: formData.classifiedCategory || null,
           subcategory: formData.photoCategory || null,
-          publish_date: formData.publishDate || "",
-          advertisement_text: formData.adText || "",
-          background_color: formData.backgroundColor || false,
-          post_in_web: formData.combinedAd || false,
+          publish_date: formData.publishDate,
+          advertisement_text: formData.adText,
+          background_color: formData.backgroundColor,
+          post_in_web: formData.combinedAd,
           upload_image: formData.uploadedImage || null,
-          special_notes: formData.specialNotes || "",
+          special_notes: formData.specialNotes,
           price: formData.totalPrice || 0,
         },
       };
@@ -184,7 +215,6 @@ export default function PostAdPage() {
       }
 
       const result = await res.json();
-
       setReferenceNumber(result.reference_number || "");
       setTrackingLink(result.tracking_link || "");
       toast.success("Advertisement submitted for review!");
@@ -195,6 +225,7 @@ export default function PostAdPage() {
     }
   };
 
+  // ---------------- Render Step ----------------
   const renderStep = () => {
     switch (currentStep) {
       case 1:
@@ -218,6 +249,7 @@ export default function PostAdPage() {
           <StepAdvertiserDetails
             formData={formData}
             updateFormData={updateFormData}
+            onSubmitForReview={handleSubmitForReview}
           />
         );
       case 4:
@@ -232,6 +264,7 @@ export default function PostAdPage() {
     }
   };
 
+  // ---------------- Render ----------------
   return (
     <div className="font-raleway bg-white min-h-screen flex flex-col">
       <main className="flex-1 flex flex-col mx-auto w-full md:w-3/4 px-6 py-12 space-y-12">
