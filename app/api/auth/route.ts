@@ -15,22 +15,25 @@ export async function POST(req: Request) {
       );
     }
 
-    const user = await prisma.users.findUnique({
-      where: { username },
-    });
+    const user = await prisma.users.findUnique({ where: { username } });
 
-    if (!user)
+    if (!user || !user.password_hash) {
+      // Either user does not exist or password_hash is null
       return NextResponse.json(
         { error: "Invalid credentials" },
         { status: 401 }
       );
+    }
 
+    // Now TypeScript knows password_hash is a string
     const isValid = await bcrypt.compare(password, user.password_hash);
-    if (!isValid)
+
+    if (!isValid) {
       return NextResponse.json(
         { error: "Invalid credentials" },
         { status: 401 }
       );
+    }
 
     return NextResponse.json({ success: true, username: user.username });
   } catch (err) {
