@@ -18,13 +18,13 @@ export async function createSession(userId: string) {
     60 * 60 * 24 * 7
   );
 
-  // Return session info for setting cookie
   return { sessionId, expires };
 }
 
 // ---------------- Get Session ----------------
 export async function getSession() {
-  const cookieStore = nextCookies();
+  // ✅ Await cookie store
+  const cookieStore = await nextCookies();
   const sessionId = cookieStore.get(SESSION_COOKIE_NAME)?.value;
 
   if (!sessionId) return null;
