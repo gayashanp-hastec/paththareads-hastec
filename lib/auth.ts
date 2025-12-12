@@ -34,7 +34,7 @@ export async function getSession() {
 
   const parsed = JSON.parse(data) as { userId: string; createdAt: string };
 
-  const user = await prisma.user.findUnique({
+  const user = await prisma.users.findUnique({
     where: { id: parsed.userId },
     include: { userRoles: { include: { role: true } } },
   });
