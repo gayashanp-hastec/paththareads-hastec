@@ -15,6 +15,11 @@ export default function StepSubmittedForReview({
     window.scrollTo(0, 0);
   }, []);
 
+  const cleanedLink =
+    trackingLink && trackingLink.includes("/")
+      ? trackingLink.split("/").slice(1).join("/")
+      : trackingLink;
+
   return (
     <div className="text-center p-8 bg-gray-50 rounded-lg shadow-md">
       <h2 className="text-2xl font-semibold text-green-700 mb-4">
@@ -44,12 +49,12 @@ export default function StepSubmittedForReview({
           </span>
           <br />
           <a
-            href={trackingLink}
+            href={cleanedLink}
             target="_blank"
             rel="noopener noreferrer"
             className="text-blue-600 hover:underline"
           >
-            {trackingLink}
+            {cleanedLink}
           </a>
           <br />
           <span>This link has also been emailed to you.</span>
