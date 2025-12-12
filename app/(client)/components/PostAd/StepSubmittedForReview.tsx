@@ -15,10 +15,9 @@ export default function StepSubmittedForReview({
     window.scrollTo(0, 0);
   }, []);
 
-  const cleanedLink =
-    trackingLink && trackingLink.includes("/")
-      ? trackingLink.split("/").slice(1).join("/")
-      : trackingLink;
+  const cleanedLink = trackingLink
+    ? trackingLink.replace(/^(https?:\/\/)?[^/]+\/?/, "")
+    : trackingLink;
 
   console.log(cleanedLink);
   console.log(trackingLink);
