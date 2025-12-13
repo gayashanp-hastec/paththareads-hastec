@@ -57,63 +57,74 @@ export default function StepSelectNewspaper({
     activeTab === "daily" ? newspaperTiles : newspaperSundayTiles;
 
   return (
-    <div className="flex flex-col">
-      <h2 className="text-2xl md:text-3xl font-bold text-center mt-5 mb-1">
-        Select a newspaper to get started
-      </h2>
-      <h5 className="text-xl md:text-xl font-bold text-center mb-10">
-        (ඔබේ දැන්වීම පළ කිරීම ආරම්භ කිරීමට පුවත්පතක් තෝරන්න)
-      </h5>
+    <section className="flex flex-col gap-6">
+      {/* ================= HEADING ================= */}
+      <header className="px-4 text-center">
+        <h2 className="text-2xl font-bold leading-tight md:text-3xl">
+          Select a newspaper to get started
+        </h2>
+        <p className="mt-1 text-base font-medium text-gray-700 md:text-lg">
+          (ඔබේ දැන්වීම පළ කිරීම ආරම්භ කිරීමට පුවත්පතක් තෝරන්න)
+        </p>
+      </header>
 
-      {/* Tabs */}
-      <div className="flex justify-center space-x-6 my-6">
+      {/* ================= TABS ================= */}
+      <div className="flex justify-center gap-3 px-4 sm:gap-6">
         <button
           onClick={() => setActiveTab("daily")}
-          className={`px-6 py-2 rounded-t-md font-medium transition-all ${
+          className={clsx(
+            "rounded-md px-5 py-2 text-sm font-medium transition focus:outline-none focus:ring-2 focus:ring-primary-accent",
             activeTab === "daily"
-              ? "bg-primary-accent text-white shadow-md"
+              ? "bg-primary-accent text-white shadow"
               : "bg-gray-100 text-gray-700 hover:bg-gray-200"
-          }`}
+          )}
         >
           Daily Newspapers
         </button>
+
         <button
           onClick={() => setActiveTab("sunday")}
-          className={`px-6 py-2 rounded-t-md font-medium transition-all ${
+          className={clsx(
+            "rounded-md px-5 py-2 text-sm font-medium transition focus:outline-none focus:ring-2 focus:ring-primary-accent",
             activeTab === "sunday"
-              ? "bg-primary-accent text-white shadow-md"
+              ? "bg-primary-accent text-white shadow"
               : "bg-gray-100 text-gray-700 hover:bg-gray-200"
-          }`}
+          )}
         >
           Sunday Newspapers
         </button>
       </div>
 
-      {/* Grid */}
-      <div className="grid grid-cols-2 md:grid-cols-4 gap-4 justify-items-center pt-6">
+      {/* ================= GRID ================= */}
+      <div className="grid grid-cols-2 gap-4 px-4 pt-4 sm:grid-cols-3 md:grid-cols-4">
         {tilesToDisplay.map((tile, idx) => {
           const isSelected =
             selectedNewspaperIndex === idx &&
             activeTab === (formData.selectedNewspaper?.tab ?? activeTab);
+
           return (
-            <div
+            <button
               key={idx}
+              type="button"
               onClick={() => handleSelectNewspaper(idx, tile)}
-              className={`w-100 h-50 md:w-48 md:h-24 shadow-md rounded-lg overflow-hidden 
-                        flex items-center justify-center cursor-pointer hover:scale-105 transition
-                        ${isSelected ? "ring-4 ring-primary-accent" : ""}`}
+              aria-pressed={isSelected}
+              className={clsx(
+                "relative flex aspect-[3/2] items-center justify-center overflow-hidden rounded-lg bg-white shadow-sm transition",
+                "hover:scale-[1.03] focus:outline-none focus:ring-2 focus:ring-primary-accent",
+                isSelected && "ring-4 ring-primary-accent"
+              )}
             >
               <Image
                 src={tile}
                 alt={`Newspaper ${idx + 1}`}
-                width={200}
-                height={200}
-                className="object-cover"
+                fill
+                className="object-contain p-2"
+                sizes="(max-width: 768px) 50vw, 25vw"
               />
-            </div>
+            </button>
           );
         })}
       </div>
-    </div>
+    </section>
   );
 }
