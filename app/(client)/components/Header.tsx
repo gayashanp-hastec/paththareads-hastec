@@ -8,7 +8,6 @@ import clsx from "clsx";
 
 export default function Header() {
   const [isScrolled, setIsScrolled] = useState(false);
-  const [showTopBtn, setShowTopBtn] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   const navLinks = [
@@ -21,31 +20,27 @@ export default function Header() {
   ];
 
   useEffect(() => {
-    const handleScroll = () => {
-      setIsScrolled(window.scrollY > 60);
-      setShowTopBtn(window.scrollY > 300);
-    };
+    const handleScroll = () => setIsScrolled(window.scrollY > 60);
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
-
-  const scrollToTop = () => window.scrollTo({ top: 0, behavior: "smooth" });
 
   return (
     <>
       <header
         className={clsx(
-          "fixed top-0 left-0 w-full z-50 transition-all duration-300 ease-in-out bg-[var(--color-primary)] text-[var(--color-primary-accent)] shadow-md",
-          isScrolled ? "h-[80px]" : "h-[200px]"
+          "fixed inset-x-0 top-0 z-50 transition-all duration-300",
+          "bg-[var(--color-primary)] text-white shadow-md",
+          isScrolled ? "h-20" : "h-32 md:h-44"
         )}
       >
-        <div className="flex flex-col h-full w-full">
-          {/* === Top Row: Email === */}
+        <div className="mx-auto flex h-full max-w-7xl flex-col px-4 md:px-8">
+          {/* ================= TOP BAR (DESKTOP ONLY) ================= */}
           {!isScrolled && (
-            <div className="hidden sm:flex justify-end items-center h-[20px] px-8 text-xs sm:text-sm bg-[var(--color-primary)]">
+            <div className="hidden items-center justify-end py-1 text-xs sm:flex">
               <a
                 href="mailto:themedialink@gmail.com"
-                className="flex items-center gap-2 text-white hover:text-white transition-colors"
+                className="flex items-center gap-2 opacity-90 hover:opacity-100"
               >
                 <Mail size={14} />
                 themedialink@gmail.com
@@ -53,134 +48,106 @@ export default function Header() {
             </div>
           )}
 
-          {/* === Non-Scrolled Layout === */}
-          {!isScrolled && (
-            <div className="grid grid-rows-[1fr_5fr_2fr] h-full w-full px-4 sm:px-8 pt-4">
-              {/* Row 2: Logo + Search + Buttons */}
-              <div className="grid grid-cols-[1fr_2fr_1fr] items-center">
-                <div className="flex justify-center items-center">
-                  <Image
-                    src="/sample-logo-1.png"
-                    alt="Paththare Ads Logo"
-                    width={150}
-                    height={60}
-                    className="object-contain"
-                  />
-                </div>
+          {/* ================= MAIN HEADER ================= */}
+          <div className="flex flex-1 items-center justify-between gap-4">
+            {/* Logo */}
+            <Link href="/" className="flex items-center">
+              <Image
+                src="/sample-logo-1.png"
+                alt="Paththare Ads Logo"
+                width={isScrolled ? 110 : 140}
+                height={50}
+                className="object-contain transition-all"
+                priority
+              />
+            </Link>
 
-                <div className="flex justify-center">
-                  <input
-                    type="text"
-                    placeholder="Search..."
-                    className="w-2/3 px-4 py-2 rounded-full border border-white-800 
-                               bg-transparent text-[var(--color-primary-accent)] placeholder-white-800
-                               focus:outline-none focus:ring-2 focus:ring-[#4c7c71]
-                               transition shadow-sm text-sm sm:text-base"
-                  />
-                </div>
-
-                <div className="flex justify-center items-center">
-                  <div className="flex">
-                    <Link
-                      href="/post-ad"
-                      className="px-4 py-1 text-sm text-primary-dark @apply bg-orange-accent w-auto #{!important} @apply  w-auto #{!important} shoadow:none hover:shadow-none rounded-full transition"
-                    >
-                      Post Your Ad
-                    </Link>
-                  </div>
-
-                  <button className="px-4 py-1 text-sm text-white @apply bg-transparent w-auto #{!important} @apply hover:bg-transparent w-auto #{!important} shoadow:none hover:shadow-none transition">
-                    Register
-                  </button>
-
-                  <button className="specialBtn px-4 py-1 rounded-full text-sm transition-all">
-                    Login
-                  </button>
-                </div>
-              </div>
-
-              {/* Row 3: Navigation */}
-              <nav className="flex justify-center items-end">
-                <ul className="flex justify-center space-x-12 text-xl font-normal">
-                  {navLinks.map((item) => (
-                    <li key={item.name}>
-                      <Link
-                        href={item.href}
-                        className="text-white hover:text-[var(--color-text-highlight)] transition-all duration-300"
-                      >
-                        {item.name}
-                      </Link>
-                    </li>
-                  ))}
-                </ul>
-              </nav>
-            </div>
-          )}
-
-          {/* === Scrolled Layout: Logo + Nav Combined === */}
-          {isScrolled && (
-            <div className="flex items-center justify-center h-full space-x-12 px-4 sm:px-8">
-              <div className="flex items-center">
-                <Image
-                  src="/sample-logo-1.png"
-                  alt="Paththare Ads Logo"
-                  width={120}
-                  height={50}
-                  className="object-contain"
+            {/* Search (Desktop Only) */}
+            {!isScrolled && (
+              <div className="hidden flex-1 justify-center md:flex">
+                <input
+                  type="text"
+                  placeholder="Search ads..."
+                  className="w-full max-w-md rounded-full border border-white/40 bg-transparent px-4 py-2 text-sm text-white placeholder-white/70 focus:outline-none focus:ring-2 focus:ring-primary-accent"
                 />
               </div>
+            )}
 
-              <nav className="flex items-center space-x-8">
-                {navLinks.map((item) => (
+            {/* Actions (Desktop Only) */}
+            {!isScrolled && (
+              <div className="hidden items-center gap-3 md:flex">
+                <Link
+                  href="/post-ad"
+                  className="rounded-full bg-orange-accent px-4 py-1.5 text-sm font-medium text-primary-dark transition hover:brightness-110"
+                >
+                  Post Your Ad
+                </Link>
+
+                <button className="rounded-full px-4 py-1.5 text-sm transition hover:bg-white/10">
+                  Register
+                </button>
+
+                <button className="specialBtn rounded-full px-4 py-1.5 text-sm">
+                  Login
+                </button>
+              </div>
+            )}
+
+            {/* Mobile Menu Toggle */}
+            <button
+              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+              className="flex items-center md:hidden"
+              aria-label="Toggle navigation menu"
+            >
+              {mobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
+            </button>
+          </div>
+
+          {/* ================= NAVIGATION (DESKTOP) ================= */}
+          <nav className="hidden justify-center md:flex">
+            <ul className="flex gap-8 pb-3 text-base">
+              {navLinks.map((item) => (
+                <li key={item.name}>
                   <Link
-                    key={item.name}
                     href={item.href}
-                    className="text-white hover:text-[var(--color-text-highlight)] transition-all duration-100 text-lg"
+                    className="transition hover:text-[var(--color-text-highlight)]"
                   >
                     {item.name}
                   </Link>
-                ))}
-              </nav>
-
-              {/* Mobile Hamburger */}
-              <div className="flex md:hidden justify-end items-center ml-auto">
-                <button
-                  onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-                  className="focus:outline-none"
-                >
-                  {mobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
-                </button>
-              </div>
-            </div>
-          )}
+                </li>
+              ))}
+            </ul>
+          </nav>
         </div>
       </header>
 
-      {/* Mobile Menu */}
+      {/* ================= MOBILE MENU ================= */}
       {mobileMenuOpen && (
-        <div className="fixed top-[160px] md:hidden w-full bg-[#383A3D] z-40 shadow-md flex flex-col items-center py-4">
+        <div className="fixed inset-x-0 top-20 z-40 flex flex-col items-center gap-4 bg-[#383A3D] py-6 shadow-md md:hidden">
           {navLinks.map((item) => (
             <Link
               key={item.name}
               href={item.href}
               onClick={() => setMobileMenuOpen(false)}
-              className="py-2 text-lg text-[var(--color-primary-accent)] hover:text-white transition-colors"
+              className="text-lg text-white opacity-90 transition hover:opacity-100"
             >
               {item.name}
             </Link>
           ))}
+
+          <div className="mt-4 flex flex-col gap-3">
+            <Link
+              href="/post-ad"
+              className="rounded-full bg-orange-accent px-6 py-2 text-center text-sm font-medium text-primary-dark"
+            >
+              Post Your Ad
+            </Link>
+            <button className="rounded-full border border-white/40 px-6 py-2 text-sm text-white">
+              Login / Register
+            </button>
+          </div>
         </div>
       )}
-
-      {/* Back to top */}
-      {/* {showTopBtn && (
-        <button
-          onClick={scrollToTop}
-          className="fixed bottom-6 right-6 z-50 bg-[#1E2021] text-[#fdca90] px-3 py-2 rounded-full shadow-lg hover:bg-[#2a2c2d] transition-all"
-        >
-          ↑ Top
-        </button>
-      )} */}
     </>
   );
 }
