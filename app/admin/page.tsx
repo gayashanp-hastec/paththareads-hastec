@@ -6,6 +6,7 @@ import Link from "next/link";
 import { Newspaper, Users, BarChart3, Settings } from "lucide-react";
 
 export default function AdminDashboard() {
+  // const [pendingCount, setPendingCount] = useState(0);
   const [pendingCount, setPendingCount] = useState<number | null>(null);
   const [loadingAds, setLoadingAds] = useState(true);
 
@@ -17,7 +18,7 @@ export default function AdminDashboard() {
         const data = await res.json();
 
         const pending = data.filter(
-          (ad: any) => ad.status?.toLowerCase() === "pending"
+          (ad: any) => ad.status.toLowerCase() === "pending"
         ).length;
 
         setPendingCount(pending);
@@ -44,7 +45,7 @@ export default function AdminDashboard() {
       <Sidebar />
 
       {/* Main Content */}
-      <main className="flex-1 p-6 md:p-8 overflow-auto space-y-6">
+      <main className="flex-1 p-6 md:p-8 overflow-auto space-y-6 relative">
         <h4 className="text-right font-semibold text-gray-600">
           Paththare Ads Admin
         </h4>
@@ -55,44 +56,30 @@ export default function AdminDashboard() {
           {tiles.map((tile) => (
             <div
               key={tile.name}
-              className={`relative bg-gradient-to-br from-white to-gray-50 rounded-2xl shadow-lg p-6 
-              flex flex-col items-center justify-center hover:shadow-2xl hover:scale-[1.03] 
-              transition-transform duration-300 cursor-pointer
-              ${
-                tile.name === "Advertisements" &&
-                !loadingAds &&
-                pendingCount !== null &&
-                pendingCount > 0
+              className={`relative bg-gradient-to-br from-white to-gray-50 rounded-2xl shadow-lg p-6 flex flex-col items-center justify-center 
+              hover:shadow-2xl hover:scale-[1.03] transition-transform duration-300 cursor-pointer ${
+                tile.name === "Advertisements" && pendingCount > 0
                   ? "ring-2 ring-red-400"
                   : ""
               }`}
             >
-              {/* Icon */}
-              <div className="text-blue-600 mb-3">{tile.icon}</div>
+              <div className="text-primary mb-3">{tile.icon}</div>
 
-              {/* Title */}
               <span className="text-lg font-semibold text-gray-800">
                 {tile.name}
               </span>
 
-              {/* Pending Badge */}
-              {tile.name === "Advertisements" &&
-                !loadingAds &&
-                pendingCount !== null &&
-                pendingCount > 0 && (
-                  <span
-                    className="absolute top-3 right-3 inline-flex items-center justify-center 
-                    px-2.5 py-1.5 text-xs font-bold text-white bg-red-600 
-                    rounded-full shadow-md animate-pulse-slow"
-                  >
-                    {pendingCount}
-                  </span>
-                )}
+              {/* Badge for pending ads */}
+              {tile.name === "Advertisements" && pendingCount > 0 && (
+                <span className="absolute top-3 right-3 inline-flex items-center justify-center px-2.5 py-1.5 text-xs font-bold leading-none text-white bg-red-600 rounded-full shadow-md animate-pulse-slow">
+                  {pendingCount}
+                </span>
+              )}
 
-              {/* Actions */}
+              {/* Dynamic Buttons for Advertisements */}
               {tile.name === "Advertisements" ? (
                 loadingAds ? (
-                  /* Loading state */
+                  /* LOADING STATE */
                   <div className="mt-5 flex flex-col items-center gap-3">
                     <div className="w-8 h-8 border-4 border-blue-300 border-t-blue-600 rounded-full animate-spin" />
                     <span className="text-sm text-gray-500">
@@ -100,38 +87,32 @@ export default function AdminDashboard() {
                     </span>
                   </div>
                 ) : pendingCount && pendingCount > 0 ? (
-                  /* Pending ads */
+                  /* PENDING STATE */
                   <div className="mt-5 w-full flex flex-col sm:flex-row gap-3">
                     <Link
                       href="/admin/advertisements"
-                      className="flex-1 text-center bg-blue-500 text-white rounded-xl py-2 
-                      hover:bg-blue-600 transition"
+                      className="flex-1 text-center bg-blue-500 text-white rounded-xl py-2 hover:bg-blue-600 transition"
                     >
                       All Ads
                     </Link>
                     <Link
                       href="/admin/advertisements/pending"
-                      className="flex-1 text-center bg-red-500 text-white rounded-xl py-2 
-                      hover:bg-red-600 transition"
+                      className="flex-1 text-center bg-red-500 text-white rounded-xl py-2 hover:bg-red-600 transition"
                     >
                       Pending ({pendingCount})
                     </Link>
                   </div>
                 ) : (
-                  /* No pending ads */
+                  /* NO PENDING */
                   <Link
                     href="/admin/advertisements"
-                    className="mt-5 w-full text-center bg-blue-500 text-white rounded-xl py-2 
-                    hover:bg-blue-600 transition"
+                    className="mt-5 w-full text-center bg-blue-500 text-white rounded-xl py-2 hover:bg-blue-600 transition"
                   >
                     Manage Ads
                   </Link>
                 )
               ) : (
-                <button
-                  className="mt-5 w-full bg-gray-900 text-white rounded-xl py-2 
-                  hover:bg-gray-800 transition"
-                >
+                <button className="mt-5 w-full bg-primary text-white rounded-xl py-2 hover:bg-gray-900 transition">
                   View {tile.name}
                 </button>
               )}
