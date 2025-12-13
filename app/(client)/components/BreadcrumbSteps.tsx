@@ -10,37 +10,44 @@ export default function BreadcrumbSteps({
   currentStep,
 }: BreadcrumbStepsProps) {
   return (
-    <div className="w-full flex justify-center mt-4 md:mt-8">
-      <div className="flex flex-wrap justify-center items-center gap-2 md:gap-4">
+    <nav
+      aria-label="Progress steps"
+      className="mt-4 flex w-full justify-center md:mt-8"
+    >
+      <ol className="flex flex-wrap items-center justify-center gap-2 md:gap-4">
         {steps.map((step, index) => {
-          const isActive = index + 1 === currentStep;
-          const isCompleted = index + 1 < currentStep;
+          const stepNumber = index + 1;
+          const isActive = stepNumber === currentStep;
+          const isCompleted = stepNumber < currentStep;
 
           return (
-            <div key={index} className="flex items-center">
-              <div
-                className={`px-3 py-1 md:px-4 md:py-2 rounded-full text-sm md:text-base font-medium transition-all duration-300
+            <li key={index} className="flex items-center">
+              <span
+                className={`inline-flex items-center rounded-full px-3 py-1 text-sm font-medium transition md:px-4 md:py-2 md:text-base
                   ${
                     isActive
-                      ? "bg-primary-accent text-white shadow-md"
+                      ? "bg-primary-accent text-white shadow-sm"
                       : isCompleted
-                      ? "bg-green-100 text-green-700 border border-green-200"
+                      ? "bg-green-100 text-green-700 ring-1 ring-green-200"
                       : "bg-gray-200 text-gray-700"
-                  }`}
+                  }
+                `}
+                aria-current={isActive ? "step" : undefined}
               >
-                {index + 1}. {step}
-              </div>
+                <span className="mr-1 font-semibold">{stepNumber}.</span>
+                {step}
+              </span>
 
-              {/* Divider Arrow */}
+              {/* Divider */}
               {index < steps.length - 1 && (
-                <span className="mx-2 text-gray-400 font-semibold text-lg select-none">
+                <span aria-hidden="true" className="mx-2 text-gray-400 md:mx-3">
                   ›
                 </span>
               )}
-            </div>
+            </li>
           );
         })}
-      </div>
-    </div>
+      </ol>
+    </nav>
   );
 }
