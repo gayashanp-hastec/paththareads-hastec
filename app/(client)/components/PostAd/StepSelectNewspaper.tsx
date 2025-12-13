@@ -72,24 +72,22 @@ export default function StepSelectNewspaper({
       <div className="flex justify-center gap-3 px-4 sm:gap-6">
         <button
           onClick={() => setActiveTab("daily")}
-          className={clsx(
-            "rounded-md px-5 py-2 text-sm font-medium transition focus:outline-none focus:ring-2 focus:ring-primary-accent",
+          className={`rounded-md px-5 py-2 text-sm font-medium transition focus:outline-none focus:ring-2 focus:ring-primary-accent ${
             activeTab === "daily"
               ? "bg-primary-accent text-white shadow"
               : "bg-gray-100 text-gray-700 hover:bg-gray-200"
-          )}
+          }`}
         >
           Daily Newspapers
         </button>
 
         <button
           onClick={() => setActiveTab("sunday")}
-          className={clsx(
-            "rounded-md px-5 py-2 text-sm font-medium transition focus:outline-none focus:ring-2 focus:ring-primary-accent",
+          className={`rounded-md px-5 py-2 text-sm font-medium transition focus:outline-none focus:ring-2 focus:ring-primary-accent ${
             activeTab === "sunday"
               ? "bg-primary-accent text-white shadow"
               : "bg-gray-100 text-gray-700 hover:bg-gray-200"
-          )}
+          }`}
         >
           Sunday Newspapers
         </button>
@@ -108,11 +106,10 @@ export default function StepSelectNewspaper({
               type="button"
               onClick={() => handleSelectNewspaper(idx, tile)}
               aria-pressed={isSelected}
-              className={clsx(
-                "relative flex aspect-[3/2] items-center justify-center overflow-hidden rounded-lg bg-white shadow-sm transition",
-                "hover:scale-[1.03] focus:outline-none focus:ring-2 focus:ring-primary-accent",
-                isSelected && "ring-4 ring-primary-accent"
-              )}
+              className={`relative flex aspect-[3/2] items-center justify-center overflow-hidden rounded-lg bg-white shadow-sm transition
+              hover:scale-[1.03] focus:outline-none focus:ring-2 focus:ring-primary-accent
+              ${isSelected ? "ring-4 ring-primary-accent" : ""}
+            `}
             >
               <Image
                 src={tile}
