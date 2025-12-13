@@ -266,67 +266,55 @@ export default function PostAdPage() {
 
   // ---------------- Render ----------------
   return (
-    <div className="font-raleway flex min-h-screen flex-col bg-white">
-      <main className="mx-auto flex w-full max-w-5xl flex-1 flex-col gap-10 px-4 py-8 sm:px-6 sm:py-10">
-        {/* ================= STEPS ================= */}
+    <div className="font-raleway bg-white min-h-screen flex flex-col">
+      <main className="flex-1 flex flex-col mx-auto w-full md:w-3/4 px-6 py-12 space-y-12">
         <BreadcrumbSteps steps={steps} currentStep={currentStep} />
+        <div className="mt-1">{renderStep()}</div>
 
-        {/* ================= STEP CONTENT ================= */}
-        <section className="mt-1 w-full">{renderStep()}</section>
-
-        {/* ================= ACTION BAR ================= */}
-        <div className="mt-8 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
-          {/* Left Action */}
+        <div className="flex justify-between mt-10">
           {currentStep !== steps.length ? (
             <button
               onClick={prevStep}
               disabled={currentStep === 1}
-              className={`inline-flex items-center justify-center rounded-lg border px-6 py-2 text-sm font-medium transition sm:text-base
-              ${
+              className={`px-6 py-2 rounded-lg border font-medium transition ${
                 currentStep === 1
-                  ? "cursor-not-allowed bg-gray-100 text-gray-400"
-                  : "border-primary-dark bg-white text-primary-dark hover:bg-primary-accent hover:text-white"
-              }
-            `}
+                  ? "bg-gray-100 text-gray-400 cursor-not-allowed"
+                  : "bg-white text-primary-dark border-primary-dark hover:bg-primary-accent hover:text-white"
+              }`}
             >
               ← Back
             </button>
           ) : (
-            <div className="flex sm:flex-1 sm:justify-start">
+            <div className="flex-1 flex justify-end">
               <button
                 onClick={() => (window.location.href = "/")}
-                className="inline-flex items-center justify-center rounded-lg border border-primary px-6 py-2 text-sm font-medium text-primary transition hover:bg-primary-accent hover:text-white sm:text-base"
+                className="px-6 py-2 rounded-lg font-medium transition text-primary cursor-pointer border border-primary hover:bg-primary-accent hover:text-white"
               >
                 Close
               </button>
             </div>
           )}
 
-          {/* Right Action */}
-          <div className="flex justify-end">
-            {currentStep < 3 ? (
-              <button
-                onClick={nextStep}
-                disabled={currentStep === 1 && !isNextEnabled}
-                className={`inline-flex items-center justify-center rounded-lg px-6 py-2 text-sm font-medium transition sm:text-base
-                ${
-                  currentStep === 1 && !isNextEnabled
-                    ? "cursor-not-allowed border border-gray-400 bg-gray-300 text-gray-500"
-                    : "bg-primary text-white hover:bg-primary-dark"
-                }
-              `}
-              >
-                Next →
-              </button>
-            ) : currentStep === 3 ? (
-              <button
-                onClick={handleSubmitForReview}
-                className="inline-flex items-center justify-center rounded-lg bg-green-600 px-6 py-2 text-sm font-medium text-white transition hover:bg-green-700 sm:text-base"
-              >
-                Submit for Review
-              </button>
-            ) : null}
-          </div>
+          {currentStep < 3 ? (
+            <button
+              onClick={nextStep}
+              disabled={currentStep === 1 && !isNextEnabled}
+              className={`px-6 py-2 rounded-lg font-medium transition ${
+                currentStep === 1 && !isNextEnabled
+                  ? "bg-gray-300 text-gray-500 cursor-not-allowed border border-gray-500"
+                  : "bg-primary text-white hover:bg-primary-dark"
+              }`}
+            >
+              Next →
+            </button>
+          ) : currentStep === 3 ? (
+            <button
+              onClick={handleSubmitForReview}
+              className="px-6 py-2 rounded-lg bg-green-600 text-white font-medium hover:bg-green-700 transition"
+            >
+              Submit for Review
+            </button>
+          ) : null}
         </div>
       </main>
     </div>
