@@ -56,81 +56,84 @@ export default function HomePage() {
   const scrollToTop = () => window.scrollTo({ top: 0, behavior: "smooth" });
 
   return (
-    <main className="flex-1 flex flex-col py-8 space-y-12">
-      {/* Row 2: Introduction */}
-
+    <main className="flex flex-1 flex-col gap-16 py-8">
+      {/* ================= HERO / INTRO SECTION ================= */}
       <section
-        className="relative flex flex-col md:px-30 md:flex-row items-center justify-between w-full min-h-[80vh] bg-cover bg-center bg-no-repeat"
-        style={{
-          backgroundImage: "url('/banner-4-maroon.png')",
-        }}
+        className="relative flex min-h-[90vh] w-full items-center bg-cover bg-center bg-no-repeat"
+        style={{ backgroundImage: "url('/banner-4-maroon.png')" }}
       >
-        {/* Overlay for readability */}
-        {/* <div className="absolute inset-0 bg-black/10"></div> */}
+        {/* Content Wrapper */}
+        <div className="mx-auto flex w-full max-w-7xl flex-col gap-10 px-6 py-16 md:flex-row md:items-center md:px-12">
+          {/* Left: Text */}
+          <div className="flex flex-1 flex-col gap-6 text-white">
+            <h1 className="text-4xl font-extrabold leading-tight tracking-tight md:text-6xl">
+              Advertise{" "}
+              <span className="text-[var(--color-primary)]">Smarter</span>
+            </h1>
 
-        {/* Left Side - Text */}
-        <div className="relative z-10 flex-1 flex flex-col justify-center px-8 md:px-16 text-white space-y-6">
-          <h1 className="text-5xl md:text-6xl font-extrabold tracking-tight text-[var(--color-text)]">
-            Advertise{" "}
-            <span className="text-[var(--color-primary)]">Smarter</span>
-          </h1>
-          <p className="text-lg md:text-xl text-[var(--color-text)] max-w-lg leading-relaxed">
-            Create and manage your ads effortlessly with{" "}
-            <strong>Paththare Ads</strong>. Your campaign, your control.
-          </p>
-          <p className="text-lg md:text-xl text-[var(--color-text)] max-w-lg leading-relaxed">
-            <strong>Paththare Ads </strong>සමඟින් ඔබේ දැන්වීම් පහසුවෙන් නිර්මාණය
-            කර කළමනාකරණය කරන්න
-          </p>
+            <p className="max-w-xl text-base leading-relaxed md:text-lg">
+              Create and manage your ads effortlessly with{" "}
+              <strong>Paththare Ads</strong>. Your campaign, your control.
+            </p>
 
-          {/* Buttons */}
-          <div className="flex flex-col sm:flex-row gap-4 mt-6">
-            <Link
-              href="/post-ad"
-              className="px-8 py-3 specialBtn text-lg font-medium rounded-md hover:brightness-110 transition"
-            >
-              Post Ad
-            </Link>
-            <Link
-              href="/#how-to-section"
-              className="px-8 py-3 border border-primary text-primary text-lg font-medium rounded-md hover:bg-primary-accent hover:text-white transition"
-            >
-              How To
-            </Link>
+            <p className="max-w-xl text-base leading-relaxed md:text-lg">
+              <strong>Paththare Ads</strong> සමඟින් ඔබේ දැන්වීම් පහසුවෙන්
+              නිර්මාණය කර කළමනාකරණය කරන්න
+            </p>
+
+            {/* CTA Buttons */}
+            <div className="flex flex-col gap-4 sm:flex-row">
+              <Link
+                href="/post-ad"
+                className="specialBtn inline-flex items-center justify-center rounded-md px-8 py-3 text-base font-medium transition hover:brightness-110"
+              >
+                Post Ad
+              </Link>
+
+              <Link
+                href="/#how-to-section"
+                className="inline-flex items-center justify-center rounded-md border border-primary px-8 py-3 text-base font-medium text-primary transition hover:bg-primary-accent hover:text-white"
+              >
+                How To
+              </Link>
+            </div>
           </div>
-        </div>
 
-        {/* Right Side - Empty or Decorative (can add image or shapes later) */}
-        <div className="relative z-0 flex-1 h-[50vh] md:h-full"></div>
+          {/* Right: Reserved Visual Space */}
+          <div className="hidden flex-1 md:block" />
+        </div>
       </section>
 
-      {/* Row 4: How to Post Your Ad */}
+      {/* ================= HOW TO SECTION ================= */}
       <section
         id="how-to-section"
-        className="flex flex-col items-center px-6 md:px-12 py-12 bg-gray-50 rounded-lg space-y-12"
+        className="mx-auto flex w-full max-w-7xl flex-col gap-10 rounded-lg bg-gray-50 px-6 py-14 md:px-12"
       >
-        <h2 className="text-3xl md:text-4xl font-bold text-center">
-          How to Post Your Ad
-        </h2>
-        <p className="text-gray-700 text-center text-lg max-w-2xl mb-0">
-          Follow these simple steps to create, submit, and publish your ad with
-          Paththare Ads.
-        </p>
-        <p className="text-gray-500 text-center text-normal max-w-2xl">
-          Paththare Ads සමඟ ඔබේ දැන්වීම නිර්මාණය කිරීමට, ඉදිරිපත් කිරීමට සහ
-          ප්‍රකාශයට පත් කිරීමට මෙම සරල පියවර අනුගමනය කරන්න.
-        </p>
+        <header className="flex flex-col items-center gap-4 text-center">
+          <h2 className="text-3xl font-bold md:text-4xl">
+            How to Post Your Ad
+          </h2>
+          <p className="max-w-2xl text-base text-gray-700 md:text-lg">
+            Follow these simple steps to create, submit, and publish your ad
+            with Paththare Ads.
+          </p>
+          <p className="max-w-2xl text-sm text-gray-500">
+            Paththare Ads සමඟ ඔබේ දැන්වීම නිර්මාණය කිරීමට, ඉදිරිපත් කිරීමට සහ
+            ප්‍රකාශයට පත් කිරීමට මෙම සරල පියවර අනුගමනය කරන්න.
+          </p>
+        </header>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 w-full max-w-6xl">
+        <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
           {[...Array(6)].map((_, i) => (
             <div
               key={i}
-              className="flex flex-col items-center text-center space-y-4 p-4 bg-white rounded-lg shadow hover:shadow-md transition"
+              className="flex flex-col items-center gap-4 rounded-lg bg-white p-6 text-center shadow-sm transition hover:shadow-md"
             >
-              <div className="text-4xl font-bold text-primary-accent">
+              <span className="text-3xl font-bold text-primary-accent">
                 {i + 1}
-              </div>
-              <h3 className="font-semibold text-xl">
+              </span>
+
+              <h3 className="text-lg font-semibold">
                 {
                   [
                     "Select Your Paper",
@@ -142,7 +145,8 @@ export default function HomePage() {
                   ][i]
                 }
               </h3>
-              <p className="text-gray-600">
+
+              <p className="text-sm leading-relaxed text-gray-600">
                 {
                   [
                     "First, select your preferred newspaper from the list.",
@@ -158,91 +162,82 @@ export default function HomePage() {
           ))}
         </div>
 
-        <div className="flex justify-center mt-4">
+        <div className="flex justify-center">
           <Link
             href="/post-ad"
-            className="px-6 py-2 bg-primary text-white rounded-md hover:brightness-110 transition text-center"
+            className="rounded-md bg-primary px-6 py-3 text-white transition hover:brightness-110"
           >
             Get Started
           </Link>
         </div>
       </section>
 
-      {/* Row 3: Newspaper Tiles */}
-      <section className="flex flex-col gap-6 mt-10">
-        {/* --- Tabs --- */}
-        <div className="flex justify-center space-x-6 mb-6">
-          <button
-            onClick={() => setActiveTab("daily")}
-            className={`px-6 py-2 rounded-t-md font-medium transition-all ${
-              activeTab === "daily"
-                ? "bg-primary text-white shadow-md"
-                : "bg-gray-100 text-gray-700 hover:bg-gray-200"
-            }`}
-          >
-            Daily Newspapers
-          </button>
-          <button
-            onClick={() => setActiveTab("sunday")}
-            className={`px-6 py-2 rounded-t-md font-medium transition-all ${
-              activeTab === "sunday"
-                ? "bg-primary text-white shadow-md"
-                : "bg-gray-100 text-gray-700 hover:bg-gray-200"
-            }`}
-          >
-            Sunday Newspapers
-          </button>
+      {/* ================= NEWSPAPER TABS ================= */}
+      <section className="flex flex-col gap-8">
+        {/* Tabs */}
+        <div className="flex justify-center gap-4">
+          {["daily", "sunday"].map((tab) => (
+            <button
+              key={tab}
+              onClick={() => setActiveTab(tab as any)}
+              className={`rounded-md px-6 py-2 text-sm font-medium transition ${
+                activeTab === tab
+                  ? "bg-primary text-white shadow"
+                  : "bg-gray-100 text-gray-700 hover:bg-gray-200"
+              }`}
+            >
+              {tab === "daily" ? "Daily Newspapers" : "Sunday Newspapers"}
+            </button>
+          ))}
         </div>
 
-        {/* --- Tab Content Wrapper --- */}
-        <div className=" border-primary-accent pt-6">
-          <div className="flex flex-wrap justify-center mt-6">
-            {(activeTab === "daily" ? newspaperTiles : newspaperSundayTiles)
-              .slice(0, showAll ? undefined : 5)
-              .map((tile, idx) => (
-                <div
-                  key={idx}
-                  onClick={() => setActiveModal(idx)}
-                  className="inline-block w-48 h-24 md:w-72 md:h-36 m-2 shadow-md rounded-lg overflow-hidden 
-                    flex items-center justify-center cursor-pointer hover:scale-105 transition"
-                >
-                  <Image
-                    src={tile}
-                    alt={`Newspaper ${idx + 1}`}
-                    width={200}
-                    height={100}
-                    className="object-cover"
-                  />
-                </div>
-              ))}
-          </div>
-
-          {!showAll && (
-            <div className="flex justify-center mt-24">
-              <Link
-                href="/post-ad"
-                className="px-6 py-2 bg-primary text-white rounded-md hover:brightness-110 transition text-center"
+        {/* Tiles */}
+        <div className="flex flex-wrap justify-center gap-4">
+          {(activeTab === "daily" ? newspaperTiles : newspaperSundayTiles)
+            .slice(0, showAll ? undefined : 5)
+            .map((tile, idx) => (
+              <button
+                key={idx}
+                onClick={() => setActiveModal(idx)}
+                className="flex h-24 w-44 items-center justify-center overflow-hidden rounded-lg shadow transition hover:scale-105 md:h-36 md:w-72"
               >
-                Get Started
-              </Link>
-            </div>
-          )}
+                <Image
+                  src={tile}
+                  alt={`Newspaper ${idx + 1}`}
+                  width={300}
+                  height={150}
+                  className="h-full w-full object-cover"
+                />
+              </button>
+            ))}
         </div>
+
+        {!showAll && (
+          <div className="flex justify-center pt-6">
+            <Link
+              href="/post-ad"
+              className="rounded-md bg-primary px-6 py-3 text-white transition hover:brightness-110"
+            >
+              Get Started
+            </Link>
+          </div>
+        )}
       </section>
 
-      {/* Modal */}
+      {/* ================= MODAL ================= */}
       <NP1LankadeepaModal
         isOpen={activeModal === 0}
         onClose={() => setActiveModal(null)}
       />
 
-      {/* Back to top */}
+      {/* ================= BACK TO TOP ================= */}
       {showTopBtn && (
         <button
           onClick={scrollToTop}
-          className="fixed bottom-6 right-6 z-50 bg-[#1E2021] text-[#fdca90] p-3 rounded-full shadow-lg hover:bg-[#2a2c2d] transition-all"
+          aria-label="Back to top"
+          className="fixed bottom-6 right-6 z-50 rounded-full bg-[#1E2021] p-3 text-[#fdca90] shadow-lg transition hover:bg-[#2a2c2d]"
         >
-          <ChevronUp size={24} />
+          <ChevronUp size={22} />
         </button>
       )}
     </main>
