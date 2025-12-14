@@ -66,17 +66,17 @@ export default function HomePage() {
         <div className="mx-auto flex w-full max-w-7xl flex-col gap-10 px-6 py-16 md:flex-row md:items-center md:px-12">
           {/* Left: Text */}
           <div className="flex flex-1 flex-col gap-6 text-white">
-            <h1 className="text-4xl font-extrabold leading-tight tracking-tight md:text-6xl">
+            <h1 className="text-4xl font-extrabold leading-tight tracking-tight md:text-6xl text-[var(--color-text)]">
               Advertise{" "}
               <span className="text-[var(--color-primary)]">Smarter</span>
             </h1>
 
-            <p className="max-w-xl text-base leading-relaxed md:text-lg">
+            <p className="max-w-xl text-base leading-relaxed md:text-lg text-[var(--color-text)]">
               Create and manage your ads effortlessly with{" "}
               <strong>Paththare Ads</strong>. Your campaign, your control.
             </p>
 
-            <p className="max-w-xl text-base leading-relaxed md:text-lg">
+            <p className="max-w-xl text-base leading-relaxed md:text-lg text-[var(--color-text)]">
               <strong>Paththare Ads</strong> සමඟින් ඔබේ දැන්වීම් පහසුවෙන්
               නිර්මාණය කර කළමනාකරණය කරන්න
             </p>

@@ -7,6 +7,7 @@
     "colHeight": 20,
     "minAdHeight": 3,
     "tintAdditionalCharge": 250,
+    "newspaperimg": "sample76894.png",
     "typeofAd": {
       "classified": {
         "name": "Classified",
@@ -100,6 +101,7 @@
     "colHeight": 20,
     "minAdHeight": 3,
     "tintAdditionalCharge": 250,
+    "newspaperimg": "sample76894.png",
     "typeofAd": {
       "classified": {
         "name": "Classified",
@@ -185,16 +187,6 @@
       }
     }
   },
-  "daily2": {
-    "id": "daily2",
-    "name": "Riviresa",
-    "type": "Daily",
-    "noColPerPage": "",
-    "colWidth": "",
-    "colHeight": "",
-    "minAdHeight": "",
-    "tintAdditionalCharge": ""
-  },
   "daily3": {
     "id": "daily3",
     "name": "",
@@ -232,6 +224,7 @@
     "colHeight": "",
     "minAdHeight": "",
     "tintAdditionalCharge": "",
+    "newspaperimg": "sample76894.png",
     "typeofAd": {
       "classified": {
         "name": "dsdsgfdsg",

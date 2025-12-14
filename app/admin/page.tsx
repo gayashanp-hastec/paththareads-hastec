@@ -83,14 +83,14 @@ export default function AdminDashboard() {
               )}
 
               {/* Badge for pending ads */}
-              {tile.name === "Advertisements" &&
+              {/* {tile.name === "Advertisements" &&
                 !loadingAds &&
                 pendingCount !== null &&
                 pendingCount > 0 && (
                   <span className="absolute top-3 right-3 inline-flex items-center justify-center px-2.5 py-1.5 text-xs font-bold leading-none text-white bg-red-600 rounded-full shadow-md animate-pulse-slow">
                     {pendingCount}
                   </span>
-                )}
+                )} */}
 
               {/* Dynamic Buttons */}
               {tile.name === "Advertisements" && !loadingAds ? (
