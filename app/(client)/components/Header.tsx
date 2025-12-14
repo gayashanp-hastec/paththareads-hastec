@@ -78,18 +78,18 @@ export default function Header() {
               <div className="hidden items-center gap-3 md:flex">
                 <Link
                   href="/post-ad"
-                  className="rounded-full bg-orange-accent px-4 py-1.5 text-sm font-medium text-primary-dark transition hover:brightness-110"
+                  className="rounded-full bg-primary-dark px-4 py-1.5 text-sm font-medium text-white transition hover:brightness-110"
                 >
                   Post Your Ad
                 </Link>
 
-                <button className="rounded-full px-4 py-1.5 text-sm transition hover:bg-white/10">
+                {/*<button className="rounded-full px-4 py-1.5 text-sm transition hover:bg-white/10">
                   Register
                 </button>
 
                 <button className="specialBtn rounded-full px-4 py-1.5 text-sm">
                   Login
-                </button>
+                </button>*/}
               </div>
             )}
 
