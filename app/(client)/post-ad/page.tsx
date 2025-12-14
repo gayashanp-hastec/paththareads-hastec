@@ -76,7 +76,7 @@ export default function PostAdPage() {
     advertiserPostalAddress: "",
     advertiserPhone: "",
     advertiserNIC: "",
-    advertiserEmail: "",
+    advertiserEmail: "pushpitha.info@gmail.com",
   });
 
   const updateFormData = (newData: Partial<FormData>) => {
