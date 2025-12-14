@@ -56,7 +56,7 @@ export default function HomePage() {
   const scrollToTop = () => window.scrollTo({ top: 0, behavior: "smooth" });
 
   return (
-    <main className="flex flex-1 flex-col gap-16 py-8">
+    <main className="flex flex-1 flex-col gap-16 py-4">
       {/* ================= HERO / INTRO SECTION ================= */}
       <section
         className="relative flex min-h-[90vh] w-full items-center bg-cover bg-center bg-no-repeat"
