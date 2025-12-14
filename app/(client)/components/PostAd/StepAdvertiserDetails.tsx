@@ -167,7 +167,7 @@ export default function StepAdvertiserDetails({
           <label className="block mb-2 font-medium">Email Address *</label>
           <input
             type="email"
-            value={"pushpitha.info@gmail.com"}
+            value="pushpitha.info@gmail.com"
             readOnly
             className="w-full border border-gray-300 rounded-lg p-3 
                focus:ring-2 focus:ring-primary-accent bg-gray-100 cursor-not-allowed"
