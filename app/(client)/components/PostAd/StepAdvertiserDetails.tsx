@@ -153,7 +153,7 @@ export default function StepAdvertiserDetails({
         </div>
 
         {/* Email */}
-        <div>
+        {/* <div>
           <label className="block mb-2 font-medium">Email Address *</label>
           <input
             type="email"
@@ -161,6 +161,16 @@ export default function StepAdvertiserDetails({
             onChange={(e) => handleChange("advertiserEmail", e.target.value)}
             className="w-full border border-gray-300 rounded-lg p-3 focus:ring-2 focus:ring-primary-accent"
             placeholder="example@email.com"
+          />
+        </div> */}
+        <div>
+          <label className="block mb-2 font-medium">Email Address *</label>
+          <input
+            type="email"
+            value={formData.advertiserEmail || "pushpitha.info@gmail.com"}
+            readOnly
+            className="w-full border border-gray-300 rounded-lg p-3 
+               focus:ring-2 focus:ring-primary-accent bg-gray-100 cursor-not-allowed"
           />
         </div>
 

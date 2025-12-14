@@ -22,7 +22,8 @@ export default function StepSelectNewspaper({
     number | null
   >(formData.selectedNewspaper?.index ?? null);
 
-  const newspaperTiles = ["/np1.png", "/np2.png", "/np3.png", "/np4.png"];
+  // const newspaperTiles = ["/np1.png", "/np2.png", "/np3.png", "/np4.png"];
+  const newspaperTiles = ["/np1.png"];
 
   const newspaperSundayTiles = ["/nps1.png", "/nps2.png"];
 
