@@ -81,7 +81,7 @@ export default function Sidebar() {
                   onClick={() => setIsAdMenuOpen((prev) => !prev)}
                   className={`w-full flex justify-between items-center px-4 py-2 rounded-lg font-medium transition-colors ${
                     pathname.startsWith("/admin/advertisements")
-                      ? "bg-[var(--color-primary-dark)]"
+                      ? ""
                       : "hover:bg-[var(--color-primary-dark)]"
                   }`}
                 >
@@ -105,7 +105,7 @@ export default function Sidebar() {
                         href={sub.href}
                         className={`flex justify-between items-center px-3 py-2 rounded-md text-sm transition-colors ${
                           pathname === sub.href
-                            ? "bg-[var(--color-primary-dark)] text-white"
+                            ? " text-white"
                             : "text-gray-300 hover:bg-[var(--color-primary-dark)]"
                         }`}
                       >
@@ -131,11 +131,7 @@ export default function Sidebar() {
             ) : (
               <Link
                 href={item.href}
-                className={`block px-4 py-2 rounded-lg font-medium transition-colors ${
-                  pathname === item.href
-                    ? "bg-[var(--color-primary-dark)]"
-                    : "hover:bg-[var(--color-primary-dark)]"
-                }`}
+                className={`block px-4 py-2 rounded-lg font-medium transition-colors hover:bg-[var(--color-primary-dark)]`}
               >
                 {item.name}
               </Link>

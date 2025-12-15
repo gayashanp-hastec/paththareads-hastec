@@ -74,7 +74,7 @@ export default function AddEditModal({ item, onClose, onSaved }: any) {
     // Generate unique filename
     const randomNum = Math.floor(10000 + Math.random() * 90000);
     const ext = file.name.split(".").pop();
-    const fileName = `${form.name
+    const fileName = `${form.type
       .replace(/\s+/g, "")
       .toLowerCase()}${randomNum}.${ext}`;
 

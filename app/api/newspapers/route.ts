@@ -42,6 +42,9 @@ export async function POST(req: Request) {
 
   const newId = `${type}${nextNumber}`;
 
+  const ext = body.newspaperimg.split(".").pop();
+  body.newspaperimg = `${newId}.${ext}`;
+
   data[newId] = { id: newId, ...body };
 
   writeData(data);
