@@ -141,7 +141,7 @@ export default function Sidebar() {
       </ul>
 
       {/* Footer */}
-      <div className="mt-auto text-sm text-gray-300 pt-6 border-t border-gray-700">
+      <div className="mt-auto text-sm text-primary-dark pt-6 border-t border-gray-700 text-center">
         &copy; {new Date().getFullYear()} Paththare Ads
         <br />
         Powered By Hastec

@@ -43,6 +43,15 @@ export default function AddEditModal({ item, onClose, onSaved }: any) {
     }
   );
 
+  const CATEGORY_SUGGESTIONS = [
+    "Real Estate",
+    "Automobile",
+    "Employment",
+    "Trade",
+    "Health & Beauty",
+    "Personal",
+  ];
+
   const [typeError, setTypeError] = useState(false);
 
   const [errors, setErrors] = useState<{
@@ -504,13 +513,56 @@ export default function AddEditModal({ item, onClose, onSaved }: any) {
                   <label className="block text-sm font-medium">
                     Categories (comma separated)
                   </label>
+
+                  {/* Input */}
                   <input
+                    key={t.categories} // 👈 forces animation & re-render if needed
                     className="w-full border p-2 rounded"
                     value={t.categories}
+                    placeholder="e.g. Real Estate, Automobile"
                     onChange={(e) =>
                       updateAdType(index, "categories", e.target.value)
                     }
                   />
+
+                  {/* Picker chips */}
+                  <div className="flex flex-wrap gap-2 mt-2">
+                    {CATEGORY_SUGGESTIONS.map((cat) => {
+                      const selected = t.categories
+                        .split(",")
+                        .map((c: string) => c.trim())
+                        .filter(Boolean);
+
+                      const isSelected = selected.includes(cat);
+
+                      return (
+                        <button
+                          key={cat}
+                          type="button"
+                          onClick={() => {
+                            const updated = isSelected
+                              ? selected.filter((c: string) => c !== cat)
+                              : [...selected, cat];
+
+                            updateAdType(
+                              index,
+                              "categories",
+                              updated.join(", ")
+                            );
+                          }}
+                          className={`px-3 py-1 rounded-full text-sm border transition
+            ${
+              isSelected
+                ? "bg-blue-600 text-white border-blue-600"
+                : "bg-gray-100 text-gray-700 hover:bg-gray-200"
+            }
+          `}
+                        >
+                          {cat}
+                        </button>
+                      );
+                    })}
+                  </div>
                 </div>
 
                 {/* Upload Image */}
