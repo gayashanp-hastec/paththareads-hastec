@@ -255,11 +255,11 @@ export default function AddEditModal({ item, onClose, onSaved }: any) {
                 </p>
               )}
 
-              {errors.newspaperimg && (
+              {/* {errors.newspaperimg && (
                 <p className="text-sm text-red-600 mt-1">
                   {errors.newspaperimg}
                 </p>
-              )}
+              )} */}
             </div>
 
             {/* Other fields */}
