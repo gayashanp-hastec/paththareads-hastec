@@ -240,11 +240,9 @@ export default function AddEditModal({ item, onClose, onSaved }: any) {
                 accept="image/*"
                 onChange={(e) => {
                   handleNewspaperImage(e);
-                  setErrors({ ...errors, newspaperimg: undefined });
+                  // setErrors({ ...errors, newspaperimg: undefined });
                 }}
-                className={`w-full border p-2 rounded ${
-                  errors.newspaperimg ? "border-red-500 animate-shake" : ""
-                }`}
+                className={`w-full border p-2 rounded`}
               />
 
               {uploadingImage && (
