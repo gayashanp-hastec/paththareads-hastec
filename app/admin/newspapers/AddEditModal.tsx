@@ -33,11 +33,11 @@ export default function AddEditModal({ item, onClose, onSaved }: any) {
     item || {
       name: "",
       type: "Daily",
-      noColPerPage: "",
-      colWidth: "",
-      colHeight: "",
-      minAdHeight: "",
-      tintAdditionalCharge: "",
+      noColPerPage: 0,
+      colWidth: 0,
+      colHeight: 0,
+      minAdHeight: 0,
+      tintAdditionalCharge: 0,
       newspaperimg: "",
       typeofAd: {},
     }
@@ -280,7 +280,9 @@ export default function AddEditModal({ item, onClose, onSaved }: any) {
             </div>
 
             <div>
-              <label className="block text-sm font-medium">Column Width</label>
+              <label className="block text-sm font-medium">
+                Column Width (cm)
+              </label>
               <input
                 type="number"
                 className="w-full border p-2 rounded"
@@ -292,7 +294,9 @@ export default function AddEditModal({ item, onClose, onSaved }: any) {
             </div>
 
             <div>
-              <label className="block text-sm font-medium">Column Height</label>
+              <label className="block text-sm font-medium">
+                Column Height (cm)
+              </label>
               <input
                 type="number"
                 className="w-full border p-2 rounded"
@@ -305,7 +309,7 @@ export default function AddEditModal({ item, onClose, onSaved }: any) {
 
             <div>
               <label className="block text-sm font-medium">
-                Minimum Ad Height
+                Minimum Ad Height (cm)
               </label>
               <input
                 type="number"
