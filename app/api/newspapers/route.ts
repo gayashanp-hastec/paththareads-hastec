@@ -22,7 +22,6 @@ export async function GET() {
 }
 
 // CREATE new newspaper
-// CREATE new newspaper
 export async function POST(req: Request) {
   const body = await req.json();
   const data = readData();
@@ -42,8 +41,8 @@ export async function POST(req: Request) {
 
   const newId = `${type}${nextNumber}`;
 
-  const ext = body.newspaperimg.split(".").pop();
-  body.newspaperimg = `${newId}.${ext}`;
+  // const ext = body.newspaperimg.split(".").pop();
+  // body.newspaperimg = `${newId}.${ext}`;
 
   data[newId] = { id: newId, ...body };
 
