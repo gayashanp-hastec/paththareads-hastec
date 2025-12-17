@@ -66,9 +66,9 @@ export default function AddEditModal({ item, onClose, onSaved }: any) {
       newErrors.name = "Newspaper name is required";
     }
 
-    if (!form.newspaperimg) {
-      newErrors.newspaperimg = "Newspaper image is required";
-    }
+    // if (!form.newspaperimg) {
+    //   newErrors.newspaperimg = "Newspaper image is required";
+    // }
 
     setErrors(newErrors);
 
@@ -231,21 +231,23 @@ export default function AddEditModal({ item, onClose, onSaved }: any) {
 
             {/* Newspaper Image Upload */}
             <div className="col-span-2">
-              <label className="block text-sm font-medium">
+              {/* <label className="block text-sm font-medium">
                 Newspaper Image
-              </label>
+              </label> */}
 
-              <input
+              {/* <input
                 type="file"
                 accept="image/*"
                 onChange={(e) => {
                   handleNewspaperImage(e);
                   // setErrors({ ...errors, newspaperimg: undefined });
                 }}
-                className={`w-full border p-2 rounded`}
-              />
+                className={`w-full border p-2 rounded ${
+                  errors.newspaperimg ? "border-red-500 animate-shake" : ""
+                }`}
+              /> */}
 
-              {uploadingImage && (
+              {/* {uploadingImage && (
                 <p className="text-sm text-gray-500">Uploading...</p>
               )}
 
@@ -255,7 +257,7 @@ export default function AddEditModal({ item, onClose, onSaved }: any) {
                 </p>
               )}
 
-              {/* {errors.newspaperimg && (
+              {errors.newspaperimg && (
                 <p className="text-sm text-red-600 mt-1">
                   {errors.newspaperimg}
                 </p>
