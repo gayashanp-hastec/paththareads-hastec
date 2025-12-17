@@ -56,7 +56,7 @@ export default function AddEditModal({ item, onClose, onSaved }: any) {
 
   const [errors, setErrors] = useState<{
     name?: string;
-    newspaperimg?: string;
+    // newspaperimg?: string;
   }>({});
 
   const validate = () => {
